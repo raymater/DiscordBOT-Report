@@ -7,7 +7,7 @@
 var Discord = require("discord.js");
 var bot = new Discord.Client();
 
-var token = "votreToken";
+var token = "votre_token";
 
 var dernierAppel = new Array(); // Matrice stockant le timestamp du dernier appel de la commande + UserID l'ayant appelé
 
@@ -99,45 +99,63 @@ bot.on("message", (message) => {
 				{
 					dernierAppel.push([message.author.id, message.createdTimestamp]);
 					
+					var moderateurs = new Array();
+					
 					message.channel.guild.roles.forEach(function(role)
 					{
 						// Chercher les modérateurs parmi tous les rôles
+						
 						if (role.hasPermission('BAN_MEMBERS'))
 						{
 							role.members.forEach(function(member)
 							{
-								// Fonction conversion timestamp -> Date
-								function timeConverter(timestamp)
+								var estDejaPrevenu = false;
+								for(var j = 0; j < moderateurs.length; j++)
 								{
-									var a = new Date(timestamp);
-									var tabMois = ['Janv.','Févr.','Mars','Avri.','Mai.','Juin','Juil.','Août','Sept.','Octo.','Nove.','Déce.'];
-									var annee = a.getFullYear();
-									var mois = tabMois[a.getMonth()];
-									var date = a.getDate();
-									var heure = a.getHours();
-									var min = a.getMinutes();
-									var sec = a.getSeconds();
-									var time = "le " + date + ' ' + mois + ' ' + annee + ' à ' + heure + 'h' + min + ':' + sec ;
-									return time;
+									if(member == moderateurs[j])
+									{
+										// Est déjà prévenu
+										estDejaPrevenu = true;
+									}
 								}
-								
-								// Reporter les utilisateurs
-								var MP = "Un rapport soumis " + timeConverter(message.createdTimestamp) + " par **" + message.author.username + "** a été effectué à l'encontre de ";
-								
-								message.mentions.users.forEach(function(user)
+									
+								if(estDejaPrevenu == false)
 								{
-									MP = MP + "@" + user.username + " ";
-								});
+									moderateurs.push(member);
 								
-								MP =  MP + "sur *" + member.guild.name + "/" + message.channel.name + "*";
-								
-								// Prise en charge de la raison du signalement
-								if(raisonSignalement != null)
-								{
-									MP = MP + " pour la raison suivante : *" + raisonSignalement + "*";
+									// Fonction conversion timestamp -> Date
+									function timeConverter(timestamp)
+									{
+										var a = new Date(timestamp);
+										var tabMois = ['Janv.','Févr.','Mars','Avri.','Mai.','Juin','Juil.','Août','Sept.','Octo.','Nove.','Déce.'];
+										var annee = a.getFullYear();
+										var mois = tabMois[a.getMonth()];
+										var date = a.getDate();
+										var heure = a.getHours();
+										var min = a.getMinutes();
+										var sec = a.getSeconds();
+										var time = "le " + date + ' ' + mois + ' ' + annee + ' à ' + heure + 'h' + min + ':' + sec ;
+										return time;
+									}
+									
+									// Reporter les utilisateurs
+									var MP = "Un rapport soumis " + timeConverter(message.createdTimestamp) + " par **" + message.author.username + "** a été effectué à l'encontre de ";
+									
+									message.mentions.users.forEach(function(user)
+									{
+										MP = MP + "@" + user.username + " ";
+									});
+									
+									MP =  MP + "sur *" + member.guild.name + "/" + message.channel.name + "*";
+									
+									// Prise en charge de la raison du signalement
+									if(raisonSignalement != null)
+									{
+										MP = MP + " pour la raison suivante : *" + raisonSignalement + "*";
+									}
+									
+									member.user.sendMessage(MP);
 								}
-								
-								member.user.sendMessage(MP);
 							});
 						}
 					});
