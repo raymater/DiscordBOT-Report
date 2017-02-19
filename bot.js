@@ -7,7 +7,7 @@
 var Discord = require("discord.js");
 var bot = new Discord.Client();
 
-var token = "votreToken";
+var token = "MjgyNDY3ODQxMzcyOTc5MjAw.C4m8bQ.9c9kE8I1h4J8mYMOOL3lwxp6Koo";
 
 var dernierAppel = new Array(); // Matrice stockant le timestamp du dernier appel de la commande + UserID l'ayant appelé
 
@@ -129,7 +129,7 @@ bot.on("message", (message) => {
 									MP = MP + "@" + user.username + " ";
 								});
 								
-								MP =  MP + "sur *" + member.guild.name + "/" + message.channel.name;
+								MP =  MP + "sur *" + member.guild.name + "/" + message.channel.name + "*";
 								
 								// Prise en charge de la raison du signalement
 								if(raisonSignalement != null)
