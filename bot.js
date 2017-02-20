@@ -7,7 +7,7 @@
 var Discord = require("discord.js");
 var bot = new Discord.Client();
 
-var token = "MjgyNDY3ODQxMzcyOTc5MjAw.C4svRQ.-_m8ozFSS3OJJOmFy16FhGtuy4M";
+var token = "votre_token";
 
 var dernierAppel = new Array(); // Matrice stockant le timestamp du dernier appel de la commande + UserID l'ayant appelé
 
