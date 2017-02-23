@@ -101,6 +101,8 @@ bot.on("message", (message) => {
 					
 					var moderateurs = new Array();
 					
+					var sontAvertis = true;
+					
 					message.channel.guild.roles.forEach(function(role)
 					{
 						// Chercher les modérateurs parmi tous les rôles
@@ -154,11 +156,24 @@ bot.on("message", (message) => {
 										MP = MP + " pour la raison suivante : *" + raisonSignalement + "*";
 									}
 									
-									member.user.sendMessage(MP);
+									try
+									{
+										member.user.sendMessage(MP);
+									}
+									catch(e)
+									{
+										sontAvertis = false;
+									}
 								}
 							});
 						}
 					});
+					
+					if(sontAvertis == true)
+					{
+						console.log("oui");
+						message.reply("Signalement effectué :wink: !");
+					}
 				}
 			}
 		}
