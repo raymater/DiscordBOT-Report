@@ -171,7 +171,6 @@ bot.on("message", (message) => {
 					
 					if(sontAvertis == true)
 					{
-						console.log("oui");
 						message.reply("Signalement effectué :wink: !");
 					}
 				}
