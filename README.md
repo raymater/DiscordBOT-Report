@@ -3,14 +3,6 @@ Bot de signalement de comportements inappropiés sur Discord (JavaScript)
 *par @raymater*
 
 
-## Ajouter directement le bot Discord sur votre serveur
-Rendez vous à l'URL suivante : **https://discordapp.com/oauth2/authorize?client_id=282467841372979200&scope=bot&permissions=0**, sélectionnez votre serveur dans la liste et cliquez sur *Autoriser*.
-
-Un bot appelé *Le petit rapporteur* sera alors rajouté sur votre serveur Discord.
-
-*Le bot doit pouvoir envoyer un MP à tous les modérateurs sur votre serveur. Pensez à bien vérifier que ces modérateurs disposent des droits de ban des utilisateurs pour pouvoir recevoir les alertes du bot.*
-
-
 ## Utilisation du bot de rapport sur Discord
 Pour signaler un comportement qui vous semble inapproprié sur Discord, utilisez la commande `!report`.
 
